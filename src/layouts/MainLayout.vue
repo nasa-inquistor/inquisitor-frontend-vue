@@ -1,21 +1,13 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="hHh lpR fFf">
+    <q-header class="bg-white text-primary">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          Quasar App
+          <img src="../assets/logo.png" width="213" height="49" />
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <div></div>
       </q-toolbar>
     </q-header>
 
@@ -23,18 +15,22 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
+      :width="200"
+      :breakpoint="500"
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header class="label-menu"> Explorar </q-item-label>
 
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
+        />
+        <q-item-label header class="label-menu"> Projetos </q-item-label>
+        <EssentialLink
+          v-for="linkPersonal in personalLinks"
+          :key="linkPersonal.title"
+          v-bind="linkPersonal"
         />
       </q-list>
     </q-drawer>
@@ -45,72 +41,75 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+<script setup>
+import { ref } from "vue";
+import EssentialLink from "src/components/EssentialLink.vue";
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+const leftDrawerOpen = ref(false);
 
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
+const essentialLinks = ref([
+  {
+    title: "Projetos",
+    icon: "dataset",
+    link: "/",
   },
+  {
+    title: "Pesquisadores",
+    icon: "group",
+    link: "/",
+  },
+  {
+    title: "Radio",
+    icon: "sensors",
+    link: "/",
+  },
+]);
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+const personalLinks = ref([
+  {
+    title: "Projeto Biologia",
+    icon: "park",
+    link: "/",
+  },
+  {
+    title: "Projeto Astronomia",
+    icon: "park",
+    link: "/",
+  },
+  {
+    title: "Projeto Fisica",
+    icon: "park",
+    link: "/",
+  },
+  {
+    title: "Projeto Fisica",
+    icon: "park",
+    link: "/",
+  },
+  {
+    title: "Projeto Computação",
+    icon: "park",
+    link: "/",
+  },
+  {
+    title: "Cultura de microorganismos",
+    icon: "park",
+    link: "/",
+  },
+]);
 
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
 </script>
+
+<style scoped>
+.label-menu {
+  color: #09090b;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.75rem; /* 155.556% */
+  letter-spacing: -0.02813rem;
+}
+</style>
